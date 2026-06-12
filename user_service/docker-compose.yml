@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  user-service:
+    build: .
+    container_name: okcare-user-service
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./test.db
+    volumes:
+      - .:/app
+    restart: unless-stopped
