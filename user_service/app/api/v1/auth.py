@@ -5,6 +5,7 @@ from app.schemas.auth import UserLogin, SetMPinRequest, CheckMPinRequest, Verify
 from app.models.user import User
 from app.utils.response.handlers import ResponseHandler
 from app.utils.response.messages import ResponseMessages
+from app.utils.auth.jwt_utils import get_tokens_for_user
 
 router = APIRouter()
 
@@ -14,11 +15,9 @@ def login(request: UserLogin, db: Session = Depends(get_db)):
     if not user or user.hashed_password != request.password:
         return ResponseHandler.bad_request(message=ResponseMessages.INVALID_CREDENTIALS)
 
-    access_token = "fake-access-token"
-    refresh_token = "fake-refresh-token"
-
+    tokens = get_tokens_for_user(user, db)
     return ResponseHandler.success(
-        response_data={'access': access_token, 'refresh': refresh_token},
+        response_data={'access': tokens['access'], 'refresh': tokens['refresh']},
         message=ResponseMessages.LOGIN_SUCCESS
     )
 

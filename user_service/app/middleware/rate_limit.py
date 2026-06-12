@@ -77,7 +77,7 @@ class GlobalRateLimitMiddleware(BaseHTTPMiddleware):
         recent_requests = [t for t in request_data if t > now_ts - rate_config['period']]
 
         if len(recent_requests) >= rate_config['limit']:
-            self.cache.set(block_key, True, 3 * 60) # Block for 3 mins
+            self.cache.set(block_key, True, 3 * 60)
             self.cache.delete(cache_key)
             return True
 

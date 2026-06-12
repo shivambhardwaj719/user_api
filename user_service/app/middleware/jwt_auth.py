@@ -6,8 +6,9 @@ from app.models.user import User
 from app.utils.response.handlers import ResponseHandler
 from app.utils.response.messages import ResponseMessages
 from app.api.deps import SessionLocal
+from app.core.config import settings
 
-SECRET_KEY = "dummy-secret-key-for-fastapi"
+SECRET_KEY = settings.SECRET_KEY
 
 class JWTAuthenticationMiddleware(BaseHTTPMiddleware):
     ALLOWED_PATHS_FOR_NO_AUTH = [

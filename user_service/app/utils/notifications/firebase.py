@@ -2,11 +2,12 @@ import logging
 import firebase_admin
 from firebase_admin import credentials, messaging
 import os
+from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
 try:
-    cred_path = os.getenv("FIREBASE_CREDENTIALS_PATH", "firebase-credentials.json")
+    cred_path = settings.FIREBASE_CREDENTIALS_PATH
     if os.path.exists(cred_path):
         cred = credentials.Certificate(cred_path)
         firebase_admin.initialize_app(cred)

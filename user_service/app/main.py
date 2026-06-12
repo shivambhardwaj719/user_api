@@ -4,7 +4,6 @@ from app.api.v1 import auth, staff, user
 from app.models.base import Base
 from app.api.deps import engine
 from app.core.scheduler import start_scheduler
-
 from app.middleware.jwt_auth import JWTAuthenticationMiddleware
 from app.middleware.logging import APILoggerMiddleware
 from app.middleware.rate_limit import GlobalRateLimitMiddleware
