@@ -2,6 +2,7 @@ from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from app.utils.response.handlers import ResponseHandler
+from app.utils.response.messages import ResponseMessages
 
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     errors = exc.errors()
@@ -13,7 +14,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
             status_code=400,
             content={
                 "success": False,
-                "message": f"Invalid data provided for {field_name}: {msg}"
+                "message": ResponseMessages.INVALID_DATA_PROVIDED.format(field_name=field_name, msg=msg)
             }
         )
-    return ResponseHandler.bad_request(message="Validation error")
+    return ResponseHandler.bad_request(message=ResponseMessages.VALIDATION_ERROR)

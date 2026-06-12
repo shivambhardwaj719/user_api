@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.api.deps import get_db, get_current_user
-from app.schemas.auth import UserLogin, UserLoginResponse, SetMPinRequest, CheckMPinRequest, VerifyPasswordRequest
+from app.schemas.auth import UserLogin, SetMPinRequest, CheckMPinRequest, VerifyPasswordRequest
 from app.models.user import User
 from app.utils.response.handlers import ResponseHandler
 from app.utils.response.messages import ResponseMessages

@@ -1,10 +1,9 @@
-from fastapi import APIRouter, Depends, Query, Path
+from fastapi import APIRouter, Depends, Path
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from app.api.deps import get_db, get_current_user
 from app.schemas.staff import StaffCreate, StaffUpdate, StaffResponse, StaffActionRequest
 from app.models.user import User
-from app.models.staff import Staff
 from app.services.staff_service import staff_service
 from app.repositories.staff_repo import staff_repo
 from app.repositories.user_repo import user_repo
@@ -72,7 +71,7 @@ def change_status(id: int, request: StaffActionRequest, db: Session = Depends(ge
         return ResponseHandler.not_found()
 
     if request.action not in ['enable', 'disable']:
-        return ResponseHandler.bad_request(message="Invalid action. Use 'enable' or 'disable'.")
+        return ResponseHandler.bad_request(message=ResponseMessages.INVALID_ACTION)
 
     is_enabled = request.action == 'enable'
     staff_repo.update(db, staff, {"is_enabled": is_enabled})

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query, Path
+from fastapi import APIRouter, Depends, Path
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from app.api.deps import get_db, get_current_user
@@ -22,7 +22,7 @@ def list_users(
     db: Session = Depends(get_db), 
     current_user: User = Depends(get_current_user)
 ):
-    users = user_repo.get_all(db) # We should add filters properly, but keeping it simple for the refactor
+    users = user_repo.get_all(db)
     filtered_users = [u for u in users if u.id != current_user.id]
     
     if search:
@@ -38,7 +38,7 @@ def list_users(
 @router.get("/{id}", response_model=None)
 def get_user(id: int = Path(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     user = user_service.get_user(db, id)
-    if isinstance(user, dict) and not user.get('success'): # If it's an error response dict
+    if isinstance(user, dict) and not user.get('success'):
         return user
     if not isinstance(user, User):
         return user
@@ -66,7 +66,7 @@ def change_status(id: int, request: UserStatusAction, db: Session = Depends(get_
         return ResponseHandler.not_found()
 
     if request.action not in ['enable', 'disable']:
-        return ResponseHandler.bad_request(message="Invalid action. Use 'enable' or 'disable'.")
+        return ResponseHandler.bad_request(message=ResponseMessages.INVALID_ACTION)
 
     user_repo.update(db, user, {'is_enabled': request.action == 'enable', 'is_active': request.action == 'enable'})
     return ResponseHandler.success()

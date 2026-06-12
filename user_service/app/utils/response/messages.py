@@ -45,6 +45,17 @@ class ResponseMessages:
     NEW_USER_CREATED_BODY = "A new user '{name}' has been registered."
     NEW_STAFF_USER_CREATED_TITLE = "New Staff User Created"
     NEW_STAFF_USER_CREATED_BODY = "A new user '{name}' was created via the Staff portal."
+    INVALID_CREDENTIALS = "Invalid credentials. Check email and password."
+    MPIN_INPUT_DOES_NOT_MATCH_SET = "Entered mPIN doesn't match saved mPIN."
+    MPIN_VERIFIED = "mPIN verified successfully."
+    PASSWORD_VERIFIED = "Password verified."
+    MPIN_UPDATED = "mPIN set successfully."
+    USER_NOT_AUTHENTICATED = "User not authenticated"
+    AUTH_HEADER_MISSING_OR_INVALID = "Authorization header missing or invalid"
+    TOKEN_EXPIRED = "Token has expired"
+    INVALID_TOKEN_SUBJECT = "Invalid token subject formatting"
+    TOKEN_MISSING_IAT = "Token missing issued at (iat) claim"
+    INVALID_DATA_PROVIDED = "Invalid data provided for {field_name}: {msg}"
 
 
     @staticmethod
